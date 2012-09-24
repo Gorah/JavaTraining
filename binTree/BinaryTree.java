@@ -1,12 +1,11 @@
 package binTree;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class BinaryTree {
 
 	private Tree root;
-	private Set<Integer> listOf = new HashSet<Integer>();
+	
 		public static void main(String[] args) {
 			BinaryTree binTree = new BinaryTree();
 			binTree.addLeaf(4);
@@ -26,7 +25,6 @@ public class BinaryTree {
 		public void addLeaf(Integer val){
 			if (root == null){
 				root = new Tree(val);
-//				root.value = new Integer(val);
 				System.out.println(root.value+" base");
 				return;
 			}
@@ -71,12 +69,13 @@ public class BinaryTree {
 		}
 
 		public void walk(){
+                    ArrayList<Integer> listOf = new ArrayList<>();
 			if(root == null){
 				return;
 			}
 
-			walk(root.left);
-			walk(root.right);
+			walk(root.left, listOf);
+			walk(root.right, listOf);
 
 
 			for (Integer i:listOf){
@@ -84,13 +83,15 @@ public class BinaryTree {
 			}
 		}
 
-		public void walk(Tree leaf){
+		public ArrayList walk(Tree leaf, ArrayList listOf){
 			if (leaf == null){
-				return;
+				return listOf;
 			}
 
-			walk(leaf.left);
-			walk(leaf.right);
-			listOf.add(leaf.value);
+			walk(leaf.left, listOf);
+                        listOf.add(leaf.value);
+			walk(leaf.right, listOf);
+			
+                        return listOf;
 		}
 }
