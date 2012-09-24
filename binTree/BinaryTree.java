@@ -25,48 +25,48 @@ public class BinaryTree {
 
 		public void addLeaf(Integer val){
 			if (root == null){
-				root = new Tree(val, "base");
+				root = new Tree(val);
 //				root.value = new Integer(val);
-				System.out.println(root.value+"("+root.typ+")");
+				System.out.println(root.value+" base");
 				return;
 			}
 
 			if (val > root.value){
                             if (root.right ==null){
-				root.right = new Tree(val, "right");
+				root.right = new Tree(val);
                                  System.out.println("right Node Added");
                             } else {
-                                addLeaf(val, root.right, "right");
+                                addLeaf(val, root.right);
                             }    
 				return;
 			} 
 
                         if (root.left == null){
-                            root.left = new Tree(val, "left");
+                            root.left = new Tree(val);
                             System.out.println("left Node Added");
                         } else {
-                            addLeaf(val, root.left, "left");
+                            addLeaf(val, root.left);
                         }
 		}
 
-		public void addLeaf(Integer val, Tree leaf, String ntype){
+		public void addLeaf(Integer val, Tree leaf){
 			if (val > leaf.value){
                             if (leaf.right == null){
-				leaf.right = new Tree(val, ntype);
+				leaf.right = new Tree(val);
                                  System.out.println("right Node Added");
                             } else {
-                                addLeaf(val, leaf.right, "right");
+                                addLeaf(val, leaf.right);
                                
                             }
 				return;
 			}
                         
 			if (leaf.left == null){
-                            leaf.left = new Tree(val, "left ");
+                            leaf.left = new Tree(val);
                             System.out.println("left Node Added");
                             
                         } else {
-                            addLeaf(val, leaf.left, "left");
+                            addLeaf(val, leaf.left);
                         }    
 		}
 
