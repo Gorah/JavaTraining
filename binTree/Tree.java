@@ -6,7 +6,7 @@ public class Tree {
 	public Integer value;
 	public String typ;
 
-	
+
 	public Tree(Integer val, String t){
 		value = val;
 		typ = t;
