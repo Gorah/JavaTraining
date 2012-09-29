@@ -1,17 +1,15 @@
 package binTree;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class BinaryTree {
 
 	private Tree root;
-	private Set<Integer> listOf = new HashSet<Integer>();
+	
 		public static void main(String[] args) {
-		
 			BinaryTree binTree = new BinaryTree();
 			binTree.addLeaf(4);
-			binTree.addLeaf(-2);
+			binTree.addLeaf(-5);
 			binTree.addLeaf(6);
 			binTree.addLeaf(5);
 			binTree.addLeaf(7);
@@ -19,67 +17,81 @@ public class BinaryTree {
 			binTree.addLeaf(3);
 			binTree.walk();
 		}
-		
+
 		public BinaryTree(){
 			root = null;
 		}
-		
+
 		public void addLeaf(Integer val){
 			if (root == null){
-				root = new Tree(val, "base");
-//				root.value = new Integer(val);
-				System.out.println(root.value+"("+root.typ+")");
+				root = new Tree(val);
+				System.out.println(root.value+" base");
 				return;
 			}
-			
+
 			if (val > root.value){
-				
-				addLeaf(val, root.right, "right");
+                            if (root.right ==null){
+				root.right = new Tree(val);
+                                 System.out.println("right Node Added");
+                            } else {
+                                addLeaf(val, root.right);
+                            }    
 				return;
 			} 
-			
-			addLeaf(val, root.left, "left");
-			return;
+
+                        if (root.left == null){
+                            root.left = new Tree(val);
+                            System.out.println("left Node Added");
+                        } else {
+                            addLeaf(val, root.left);
+                        }
 		}
 
-		public void addLeaf(Integer val, Tree leaf, String ntype){
-			if(leaf == null){
-				leaf = new Tree(val, ntype);
-//				System.out.println("hm");
-				System.out.println(leaf.value +"("+leaf.typ+")");
-				return;
-			}
-			System.out.println(leaf.value);
+		public void addLeaf(Integer val, Tree leaf){
 			if (val > leaf.value){
-				this.addLeaf(val, root.right, "right");
+                            if (leaf.right == null){
+				leaf.right = new Tree(val);
+                                 System.out.println("right Node Added");
+                            } else {
+                                addLeaf(val, leaf.right);
+                               
+                            }
 				return;
 			}
-			this.addLeaf(val, root.left, "left");
-			return;
+                        
+			if (leaf.left == null){
+                            leaf.left = new Tree(val);
+                            System.out.println("left Node Added");
+                            
+                        } else {
+                            addLeaf(val, leaf.left);
+                        }    
 		}
-		
+
 		public void walk(){
+                    ArrayList<Integer> listOf = new ArrayList<>();
 			if(root == null){
 				return;
 			}
 
-			walk(root.left);
-			walk(root.right);
-			
-			
+			walk(root.left, listOf);
+			walk(root.right, listOf);
+
+
 			for (Integer i:listOf){
 				System.out.println(i);
 			}
 		}
-		
-		public void walk(Tree leaf){
+
+		public ArrayList walk(Tree leaf, ArrayList listOf){
 			if (leaf == null){
-				
-				return;
+				return listOf;
 			}
 
-			walk(root.left);
-			walk(root.right);
-			listOf.add(leaf.value);
+			walk(leaf.left, listOf);
+                        listOf.add(leaf.value);
+			walk(leaf.right, listOf);
+			
+                        return listOf;
 		}
 }
